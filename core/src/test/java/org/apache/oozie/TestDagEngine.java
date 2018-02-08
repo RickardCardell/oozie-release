@@ -44,6 +44,8 @@ import java.io.OutputStream;
 import java.io.FileOutputStream;
 
 public class TestDagEngine extends XTestCase {
+
+
     private EmbeddedServletContainer container;
     private Services services;
 
@@ -69,6 +71,8 @@ public class TestDagEngine extends XTestCase {
     }
     protected void setUp() throws Exception {
         super.setUp();
+
+
         CallbackServlet.reset();
         container = new EmbeddedServletContainer("oozie");
         container.addServletEndpoint("/callback", CallbackServlet.class);
@@ -165,6 +169,127 @@ public class TestDagEngine extends XTestCase {
         String def = engine.getDefinition(jobId1);
         assertNotNull(def);
     }
+
+    public void testFewDecisionsDAGSubmitsInReasonableTime() throws Exception {
+
+        String workflowPath = getTestCaseFileUri("workflow.xml");
+        Reader reader = IOUtils.getResourceAsReader("wf-decisions-small.xml", -1);
+        Writer writer = new FileWriter(new File(getTestCaseDir(), "workflow.xml"));
+        IOUtils.copyCharStream(reader, writer);
+
+        final DagEngine engine = new DagEngine(getTestUser());
+        Configuration conf = new XConfiguration();
+        conf.set(OozieClient.APP_PATH, workflowPath);
+        conf.set(OozieClient.USER_NAME, getTestUser());
+
+        conf.set(OozieClient.LOG_TOKEN, "t");
+        conf.set("signal-value", "OK");
+        conf.set("external-status", "ok");
+        conf.set("error", "end.error");
+
+        long start = System.currentTimeMillis();
+
+        String jobId1 = engine.submitJob(conf, false);
+        long actualTime = System.currentTimeMillis() - start;
+
+        long expectedLessTime = 1000L;
+        assertTrue("The submit took " + actualTime + "ms which is longer than the expected time of " + expectedLessTime + "ms. ",
+                actualTime < expectedLessTime);
+
+        String def = engine.getDefinition(jobId1);
+        assertNotNull(def);
+    }
+
+    public void test20DecisionsDAGSubmitsInReasonableTime() throws Exception {
+
+        String workflowPath = getTestCaseFileUri("workflow.xml");
+        Reader reader = IOUtils.getResourceAsReader("wf-decisions-20.xml", -1);
+        Writer writer = new FileWriter(new File(getTestCaseDir(), "workflow.xml"));
+        IOUtils.copyCharStream(reader, writer);
+
+        final DagEngine engine = new DagEngine(getTestUser());
+        Configuration conf = new XConfiguration();
+        conf.set(OozieClient.APP_PATH, workflowPath);
+        conf.set(OozieClient.USER_NAME, getTestUser());
+
+        conf.set(OozieClient.LOG_TOKEN, "t");
+        conf.set("signal-value", "OK");
+        conf.set("external-status", "ok");
+        conf.set("error", "end.error");
+
+        long start = System.currentTimeMillis();
+
+        String jobId1 = engine.submitJob(conf, false);
+        long actualTime = System.currentTimeMillis() - start;
+
+        long expectedLessTime = 1000L;
+        assertTrue("The submit took " + actualTime + "ms which is longer than the expected time of " + expectedLessTime + "ms. ",
+                actualTime < expectedLessTime);
+
+        String def = engine.getDefinition(jobId1);
+        assertNotNull(def);
+    }
+
+    public void test25DecisionsDAGSubmitsInReasonableTime() throws Exception {
+
+        String workflowPath = getTestCaseFileUri("workflow.xml");
+        Reader reader = IOUtils.getResourceAsReader("wf-decisions-25.xml", -1);
+        Writer writer = new FileWriter(new File(getTestCaseDir(), "workflow.xml"));
+        IOUtils.copyCharStream(reader, writer);
+
+        final DagEngine engine = new DagEngine(getTestUser());
+        Configuration conf = new XConfiguration();
+        conf.set(OozieClient.APP_PATH, workflowPath);
+        conf.set(OozieClient.USER_NAME, getTestUser());
+
+        conf.set(OozieClient.LOG_TOKEN, "t");
+        conf.set("signal-value", "OK");
+        conf.set("external-status", "ok");
+        conf.set("error", "end.error");
+
+        long start = System.currentTimeMillis();
+
+        String jobId1 = engine.submitJob(conf, false);
+        long actualTime = System.currentTimeMillis() - start;
+
+        long expectedLessTime = 1000L;
+        assertTrue("The submit took " + actualTime + "ms which is longer than the expected time of " + expectedLessTime + "ms. ",
+                actualTime < expectedLessTime);
+
+        String def = engine.getDefinition(jobId1);
+        assertNotNull(def);
+    }
+
+    public void test28DecisionsDAGSubmitsInReasonableTime() throws Exception {
+
+        String workflowPath = getTestCaseFileUri("workflow.xml");
+        Reader reader = IOUtils.getResourceAsReader("wf-decisions-28.xml", -1);
+        Writer writer = new FileWriter(new File(getTestCaseDir(), "workflow.xml"));
+        IOUtils.copyCharStream(reader, writer);
+
+        final DagEngine engine = new DagEngine(getTestUser());
+        Configuration conf = new XConfiguration();
+        conf.set(OozieClient.APP_PATH, workflowPath);
+        conf.set(OozieClient.USER_NAME, getTestUser());
+
+        conf.set(OozieClient.LOG_TOKEN, "t");
+        conf.set("signal-value", "OK");
+        conf.set("external-status", "ok");
+        conf.set("error", "end.error");
+
+        long start = System.currentTimeMillis();
+
+        String jobId1 = engine.submitJob(conf, false);
+        long actualTime = System.currentTimeMillis() - start;
+
+        long expectedLessTime = 1000L;
+        assertTrue("The submit took " + actualTime + "ms which is longer than the expected time of " + expectedLessTime + "ms. ",
+                actualTime < expectedLessTime);
+
+        String def = engine.getDefinition(jobId1);
+        assertNotNull(def);
+    }
+
 
     public void testGetJobs() throws Exception {
         String workflowPath = getTestCaseFileUri("workflow.xml");

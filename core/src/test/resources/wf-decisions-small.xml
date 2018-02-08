@@ -1,0 +1,137 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<workflow-app xmlns="uri:oozie:workflow:0.1" name="test-wf">
+
+    <start to="fs_1_check"/>
+    
+    <decision name="fs_1_check">
+        <switch>
+            <case to="fs_2_check">
+                ${fs:exists('/dummy') == "true" }
+            </case>
+            <default to="fs_1_foo"/>
+        </switch>
+    </decision>
+
+    <action name="fs_1_foo">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_2_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_2_check">
+        <switch>
+            <case to="fs_3_check">
+                ${fs:exists('/dummy') == "true" }
+            </case>
+            <default to="fs_2_foo"/>
+        </switch>
+    </decision>
+
+    <action name="fs_2_foo">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_3_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_3_check">
+        <switch>
+            <case to="fs_4_check">
+                ${fs:exists('/dummy') == "true" }
+            </case>
+            <default to="fs_3_foo"/>
+        </switch>
+    </decision>
+
+    <action name="fs_3_foo">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_4_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_4_check">
+        <switch>
+            <case to="end">
+                ${fs:exists('/dummy') == "true" }
+            </case>
+            <default to="fs_4_foo"/>
+        </switch>
+    </decision>
+
+    <action name="fs_4_foo">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="end"/>
+        <error to="end"/>
+
+    </action>
+
+
+
+    <!--<decision name="fs_29_check">-->
+        <!--<switch>-->
+            <!--<case to="fs_30_check">-->
+                <!--${fs:exists('/dummy') == "true" }-->
+            <!--</case>-->
+            <!--<default to="fs_29_foo"/>-->
+        <!--</switch>-->
+    <!--</decision>-->
+
+    <!--<action name="fs_29_foo">-->
+        <!--<fs>-->
+            <!--<move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>-->
+        <!--</fs>-->
+        <!--<ok to="fs_30_check"/>-->
+        <!--<error to="end"/>-->
+
+    <!--</action>-->
+
+    <!--<action name='fs_30_check'>-->
+        <!--<fs>-->
+            <!--<move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>-->
+        <!--</fs>-->
+        <!--<ok to="end"/>-->
+        <!--<error to="end"/>-->
+    <!--</action>-->
+
+
+
+
+
+
+
+    <kill name="kill">
+        <message>kill</message>
+    </kill>
+
+    <end name="end"/>
+
+</workflow-app>

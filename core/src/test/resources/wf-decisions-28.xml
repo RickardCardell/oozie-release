@@ -1,0 +1,587 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<workflow-app xmlns="uri:oozie:workflow:0.1" name="test-wf">
+
+    <start to="fs_1_check"/>
+
+    <decision name="fs_1_check">
+        <switch>
+            <case to="fs_2_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_1_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_1_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_2_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_2_check">
+        <switch>
+            <case to="fs_3_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_2_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_2_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_3_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_3_check">
+        <switch>
+            <case to="fs_4_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_3_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_3_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_4_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_4_check">
+        <switch>
+            <case to="fs_5_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_4_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_4_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_5_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_5_check">
+        <switch>
+            <case to="fs_6_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_5_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_5_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_6_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_6_check">
+        <switch>
+            <case to="fs_7_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_6_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_6_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_7_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_7_check">
+        <switch>
+            <case to="fs_8_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_7_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_7_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_8_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_8_check">
+        <switch>
+            <case to="fs_9_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_8_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_8_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_9_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_9_check">
+        <switch>
+            <case to="fs_10_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_9_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_9_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_10_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_10_check">
+        <switch>
+            <case to="fs_11_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_10_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_10_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_11_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_11_check">
+        <switch>
+            <case to="fs_12_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_11_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_11_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_12_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_12_check">
+        <switch>
+            <case to="fs_13_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_12_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_12_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_13_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_13_check">
+        <switch>
+            <case to="fs_14_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_13_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_13_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_14_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_14_check">
+        <switch>
+            <case to="fs_15_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_14_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_14_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_15_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_15_check">
+        <switch>
+            <case to="fs_16_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_15_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_15_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_16_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_16_check">
+        <switch>
+            <case to="fs_17_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_16_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_16_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_17_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_17_check">
+        <switch>
+            <case to="fs_18_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_17_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_17_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_18_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_18_check">
+        <switch>
+            <case to="fs_19_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_18_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_18_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_19_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_19_check">
+        <switch>
+            <case to="fs_20_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_19_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_19_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_20_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_20_check">
+        <switch>
+            <case to="fs_21_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_20_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_20_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_21_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_21_check">
+        <switch>
+            <case to="fs_22_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_21_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_21_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_22_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_22_check">
+        <switch>
+            <case to="fs_23_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_22_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_22_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_23_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_23_check">
+        <switch>
+            <case to="fs_24_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_23_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_23_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_24_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_24_check">
+        <switch>
+            <case to="fs_25_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_24_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_24_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_25_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_25_check">
+        <switch>
+            <case to="fs_26_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_25_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_25_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_26_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_26_check">
+        <switch>
+            <case to="fs_27_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_26_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_26_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_27_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_27_check">
+        <switch>
+            <case to="fs_28_check">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_27_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_27_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="fs_28_check"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <decision name="fs_28_check">
+        <switch>
+            <case to="end">
+                ${fs:exists('/some_dir') == "true" }
+            </case>
+            <default to="fs_28_bar"/>
+        </switch>
+    </decision>
+
+    <action name="fs_28_bar">
+        <fs>
+            <move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>
+        </fs>
+        <ok to="end"/>
+        <error to="end"/>
+
+    </action>
+
+
+    <!--<decision name="fs_29_check">-->
+    <!--<switch>-->
+    <!--<case to="fs_30_check">-->
+    <!--${fs:exists('/some_dir') == "true" }-->
+    <!--</case>-->
+    <!--<default to="fs_29_bar"/>-->
+    <!--</switch>-->
+    <!--</decision>-->
+
+    <!--<action name="fs_29_bar">-->
+    <!--<fs>-->
+    <!--<move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>-->
+    <!--</fs>-->
+    <!--<ok to="fs_30_check"/>-->
+    <!--<error to="end"/>-->
+
+    <!--</action>-->
+
+    <!--<action name='fs_30_check'>-->
+    <!--<fs>-->
+    <!--<move source='hdfs:/foobarbaz' target='hdfs:/foobarbaz2'/>-->
+    <!--</fs>-->
+    <!--<ok to="end"/>-->
+    <!--<error to="end"/>-->
+
+    <!--</action>-->
+
+
+
+
+
+    <end name="end"/>
+
+</workflow-app>
